@@ -43,8 +43,15 @@ const lTetromino = [
 
 const theTetrominoes = [lTetromino, zTetromino, tTetromino, oTetromino, iTetromino]
 
+
 let currentPosition = 4
-let current = theTetrominoes[0][0]
+let currentRotation = 0
+
+//randomly select a tetromnio & its first rotation
+
+let random = Math.floor(Math.random()*theTetrominoes.length)
+
+let current = theTetrominoes[random][0]
 
 //draw the first rotation in the first tetromino
 function draw() {
@@ -53,6 +60,19 @@ function draw() {
     })
 }
 
-draw()
+function undraw(){
+    current.forEach(index => {
+        squares[currentPosition + index].classList.remove('tetromino')
+    })
+}
+//make teromino move down each second
+timerID = setInterval(moveDown, 1000)
+
+//move down function
+function moveDown(){
+    undraw()
+    currentPosition += width
+    draw()
+}
 
 })
